@@ -1,9 +1,8 @@
+bin/
 *.xml
 *.out
-/db-data
-logs/
-pact-logs/
-log/
-bin/
 db-data/
+logs/
+log/
+pact-logs/
 .vscode/
