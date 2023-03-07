@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: 'postgres:latest'
+    ports:
+      - "5432:5432"
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    volumes:
+      - ./db-data/postgres/:/var/lib/postgresql/data/
+
+  provider:
+    build:
+      context: ./provider
+      dockerfile: ./provider.dockerfile
+    restart: always
+    ports:
+      - "8080:80"
+    deploy:
+      mode: replicated
+      replicas: 1
+  
+  consumer:
+    build:
+      context: ./consumer
+      dockerfile: ./consumer.dockerfile
+    restart: always
+    ports:
+      - "8081:80"
+    deploy:
+      mode: replicated
+      replicas: 1
