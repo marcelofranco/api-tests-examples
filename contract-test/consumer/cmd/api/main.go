@@ -7,8 +7,9 @@ import (
 	"gorm.io/gorm"
 )
 
-type Client struct {
-	DB *gorm.DB
+type Config struct {
+	Repo   data.Repository
+	Client Client
 }
 
 const port = ":80"
@@ -25,10 +26,16 @@ func main() {
 	}
 	defer sqlDB.Close()
 
-	app := Client{
-		DB: d,
+	app := Config{
+		Client: NewClient("http://provider"),
 	}
+	app.setUpRepo(d)
 
 	mux := app.routes()
 	mux.Run(port)
+}
+
+func (app *Config) setUpRepo(conn *gorm.DB) {
+	db := data.NewPostgresRepository(conn)
+	app.Repo = db
 }

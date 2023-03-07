@@ -1,0 +1,56 @@
+{
+  "consumer": {
+    "name": "Students"
+  },
+  "provider": {
+    "name": "Classes"
+  },
+  "interactions": [
+    {
+      "description": "A request to get classes from student",
+      "providerState": "Class of student exist",
+      "request": {
+        "method": "GET",
+        "path": "/classes/1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+          {
+            "day": "string",
+            "discipline": "string",
+            "hour": "string",
+            "id": 1
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "min": 1
+          },
+          "$.body[*].*": {
+            "match": "type"
+          },
+          "$.body[*].day": {
+            "match": "type"
+          },
+          "$.body[*].discipline": {
+            "match": "type"
+          },
+          "$.body[*].hour": {
+            "match": "type"
+          },
+          "$.body[*].id": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

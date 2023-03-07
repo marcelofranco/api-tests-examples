@@ -4,9 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const port = ":80"
-
-func HandleRequests() {
+func HandleRequests(port string) {
 	r := gin.Default()
 	r.GET("/classes/:student", GetStudentClasses)
 	r.Run(port)

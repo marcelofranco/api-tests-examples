@@ -1,6 +1,9 @@
-contract-test/consumer/bin/
-contract-test/provider/bin/
-contract-test/db-data/
 *.xml
 *.out
 /db-data
+logs/
+pact-logs/
+log/
+bin/
+db-data/
+.vscode/

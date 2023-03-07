@@ -26,6 +26,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    environment:
+      DATABASE_DSN: "host=postgres port=5432 user=postgres password=password dbname=postgres sslmode=disable timezone=UTC connect_timeout=5"
   
   consumer:
     build:
@@ -37,3 +39,5 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    environment:
+      DATABASE_DSN: "host=postgres port=5432 user=postgres password=password dbname=postgres sslmode=disable timezone=UTC connect_timeout=5"
