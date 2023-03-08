@@ -1,5 +1,5 @@
 # API Testing examples
-Project to write api tests using multiple tools and techniches.
+Project to build examples of api tests using multiple tools and techniches.
 
 ## postman
 Testing the API [Restful-Booker](https://restful-booker.herokuapp.com/) using Postman.
