@@ -1,6 +1,7 @@
 package data
 
 import (
+	"errors"
 	"log"
 	"os"
 
@@ -17,6 +18,39 @@ func DBConnect() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	DB.AutoMigrate(&Student{})
+	runMigrations(DB)
+
 	return DB, nil
+}
+
+func runMigrations(d *gorm.DB) error {
+	err := d.AutoMigrate(&Student{})
+
+	if err != nil {
+		return err
+	}
+
+	if d.Migrator().HasTable(&Student{}) {
+		if err = d.First(&Student{}).Error; errors.Is(err, gorm.ErrRecordNotFound) {
+			var rooms = []Student{
+				{
+					Name: "Marcelo",
+					CPF:  "123.123.123-12",
+					RG:   "12.123.123-1",
+				},
+				{
+					Name: "Ana",
+					CPF:  "321.321.321-32",
+					RG:   "32.321.321-3",
+				},
+			}
+			for _, r := range rooms {
+				if err = d.Create(&r).Error; err != nil {
+					return err
+				}
+			}
+		}
+	}
+
+	return nil
 }
